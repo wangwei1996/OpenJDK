@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export COMPILER_WARNINGS_FATAL=false
 # OpenJDK构建官方教程: https://openjdk.java.net/groups/build/doc/building.html
 # build之前，需要安装freetype,使用如下命令安装
 # sudo apt-get install libpng12-dev zlib1g-dev
@@ -11,10 +11,10 @@
 make clean CONF=linux-x86_64-normal-server-slowdebug
 
 # freetype路径配置
-FREETYPEINCLUDE='/usr/include/freetype2'
-FREETYPELIB='/usr/lib/x86_64-linux-gnu/'
+FREETYPEINCLUDE='/opt/homebrew/include/freetype2'
+FREETYPELIB='/opt/homebrew/Cellar/freetype/2.11.0/lib'
 # BootJDK配置
-BOOTJDK='/home/wei/workspace/Temp/jdk7/jdk1.7.0_80'
+BOOTJDK='/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home'
 # 构建文件输出目录
 BUILDOUTPUTDIR=`pwd`/build
 
@@ -23,8 +23,9 @@ BUILDOUTPUTDIR=`pwd`/build
     --with-boot-jdk=${BOOTJDK}  \
     --with-freetype-include=${FREETYPEINCLUDE} \
     --with-freetype-lib=${FREETYPELIB} \
-    --with-target-bits=64   `#指定编译64位系统的JDK；` \
-    --enable-debug-symbols ZIP_DEBUGINFO_FILES=0 `#ZIP_DEBUGINFO_FILES：生成调试的符号信息，并且不压缩,这样才可以进行源码调试；`
+    --with-target-bits=32   `#指定编译64位系统的JDK；` \
+    --enable-debug-symbols ZIP_DEBUGINFO_FILES=0 `#ZIP_DEBUGINFO_FILES：生成调试的符号信息，并且不压缩,这样才可以进行源码调试；` \
+    OBJCOPY=gobjcopy
 
 # 判断一下configure的执行结果
 if [[ $? -ne 0 ]]; then
@@ -63,9 +64,10 @@ export ALT_OUTPUTDIR=${BUILDOUTPUTDIR}
 #这两个环境变量必须去掉，不然会有很诡异的事情发生，Makefile脚本检查到有这2个变量就会提示警告）
 unset JAVA_HOME
 unset CLASSPATH
+export COMPILER_WARNINGS_FATAL=false
 # 将make all修改为make images,不构建docs，减少构建时间
 # ZIP_DEBUGINFO_FILES=0 参数很重要，即不对debuginfo进行压缩，只有不进行压缩，才可以进行源码调试
-make images CONF=linux-x86_64-normal-server-slowdebug ZIP_DEBUGINFO_FILES=0  2>&1|tee $ALT_OUTPUTDIR/build.log
+make images CONF=macosx-arm-normal-server-slowdebug ZIP_DEBUGINFO_FILES=0  2>&1|tee $ALT_OUTPUTDIR/build.log
 
 # 判断一下构建结果
 if [[ $? -ne 0 ]]; then

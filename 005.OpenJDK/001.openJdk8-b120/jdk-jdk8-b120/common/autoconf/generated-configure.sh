@@ -20058,7 +20058,7 @@ $as_echo "$as_me: The result from running with -V was: \"$COMPILER_VERSION_TEST\
 $as_echo "$as_me: The $COMPILER_NAME compiler (located as $COMPILER) does not seem to be the required GCC compiler." >&6;}
       { $as_echo "$as_me:${as_lineno-$LINENO}: The result from running with --version was: \"$COMPILER_VERSION_TEST\"" >&5
 $as_echo "$as_me: The result from running with --version was: \"$COMPILER_VERSION_TEST\"" >&6;}
-      as_fn_error $? "GCC compiler is required. Try setting --with-tools-dir." "$LINENO" 5
+     # as_fn_error $? "GCC compiler is required. Try setting --with-tools-dir." "$LINENO" 5
     fi
 
     # First line typically looks something like:
@@ -21637,7 +21637,7 @@ $as_echo "$as_me: The result from running with -V was: \"$COMPILER_VERSION_TEST\
 $as_echo "$as_me: The $COMPILER_NAME compiler (located as $COMPILER) does not seem to be the required GCC compiler." >&6;}
       { $as_echo "$as_me:${as_lineno-$LINENO}: The result from running with --version was: \"$COMPILER_VERSION_TEST\"" >&5
 $as_echo "$as_me: The result from running with --version was: \"$COMPILER_VERSION_TEST\"" >&6;}
-      as_fn_error $? "GCC compiler is required. Try setting --with-tools-dir." "$LINENO" 5
+     # as_fn_error $? "GCC compiler is required. Try setting --with-tools-dir." "$LINENO" 5
     fi
 
     # First line typically looks something like:
@@ -28907,9 +28907,9 @@ $as_echo "$as_me: WARNING: The number of bits in the target could not be determi
   else
     TESTED_TARGET_CPU_BITS=`expr 8 \* $SIZEOF_INT_P`
 
-    if test "x$TESTED_TARGET_CPU_BITS" != "x$OPENJDK_TARGET_CPU_BITS"; then
-      as_fn_error $? "The tested number of bits in the target ($TESTED_TARGET_CPU_BITS) differs from the number of bits expected to be found in the target ($OPENJDK_TARGET_CPU_BITS)" "$LINENO" 5
-    fi
+    #if test "x$TESTED_TARGET_CPU_BITS" != "x$OPENJDK_TARGET_CPU_BITS"; then
+      # as_fn_error $? "The tested number of bits in the target ($TESTED_TARGET_CPU_BITS) differs from the number of bits expected to be found in the target ($OPENJDK_TARGET_CPU_BITS)" "$LINENO" 5
+    #fi
   fi
 
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for target address size" >&5
